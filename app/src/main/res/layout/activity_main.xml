@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/holo_purple"
+    android:background="@android:color/background_light"
     tools:context="com.aulestin.topquizz.controller.MainActivity">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:padding="20dp"
-        android:text="Welcome! What's your name?" />
+        android:text="Bienvenue, Quel est votre nom ?" />
 
     <EditText
         android:id="@+id/activity_main_greeting_input"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:hint="Please type your name" />
+        android:hint="Entrez votre prénom" />
 
     <Button
         android:id="@+id/activity_main_play_btn"
@@ -31,5 +31,5 @@
         android:layout_marginTop="20dp"
         android:padding="30dp"
         android:layout_gravity="center_horizontal"
-        android:text="Let's play" />
+        android:text="Jouez !" />
 </LinearLayout>

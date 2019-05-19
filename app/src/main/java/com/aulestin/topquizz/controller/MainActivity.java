@@ -28,17 +28,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String PREF_KEY_FIRSTNAME = "PREF_KEY_FIRSTNAME";
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (GAME_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
-            // Fetch the score from the intent
-            int score = data.getIntExtra(GameActivity.BUNDLE_EXTRA_SCORE, 0);
-
-            mPreferences.edit().putInt(PREF_KEY_SCORE, score).apply();
-            greetUser();
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -46,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("MainActivity::onCreate()");
 
         mUser = new User();
+
         mPreferences = getPreferences(MODE_PRIVATE);
 
         mGreetingText = (TextView) findViewById(R.id.activity_main_greeting_text);
@@ -53,11 +43,13 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton = (Button) findViewById(R.id.activity_main_play_btn);
 
         mPlayButton.setEnabled(false);
+
         greetUser();
 
         mNameInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
@@ -67,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -77,11 +70,24 @@ public class MainActivity extends AppCompatActivity {
                 mUser.setFirstname(firstname);
 
                 mPreferences.edit().putString(PREF_KEY_FIRSTNAME, mUser.getFirstname()).apply();
-                // User clicked button
+
+                // User clicked the button
                 Intent gameActivityIntent = new Intent(MainActivity.this, GameActivity.class);
                 startActivityForResult(gameActivityIntent, GAME_ACTIVITY_REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (GAME_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
+            // Fetch the score from the Intent
+            int score = data.getIntExtra(GameActivity.BUNDLE_EXTRA_SCORE, 0);
+
+            mPreferences.edit().putInt(PREF_KEY_SCORE, score).apply();
+
+            greetUser();
+        }
     }
 
     private void greetUser() {
@@ -91,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             int score = mPreferences.getInt(PREF_KEY_SCORE, 0);
 
             String fulltext = "Bienvenue, " + firstname
-                    + "!\nLe meilleur socre est " + score
+                    + "!\nVotre dernier score était " + score
                     + ", ferez-vous mieux cette fois ?";
             mGreetingText.setText(fulltext);
             mNameInput.setText(firstname);
@@ -99,5 +105,41 @@ public class MainActivity extends AppCompatActivity {
             mPlayButton.setEnabled(true);
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        System.out.println("MainActivity::onStart()");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        System.out.println("MainActivity::onResume()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        System.out.println("MainActivity::onPause()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        System.out.println("MainActivity::onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        System.out.println("MainActivity::onDestroy()");
+    }
+
 }
 
